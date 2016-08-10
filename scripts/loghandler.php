@@ -90,9 +90,17 @@ if (is_writable($logDirectory)
     $format = '[%channel%] %level_name%: %message% %context% %extra%';
 }
 
+function delTree($dir) {
+    $files = array_diff(scandir($dir), array('.','..'));
+    foreach ($files as $file) {
+        (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+    }
+    return rmdir($dir);
+}
+
 $handleInstallLog->pushProcessor(function ($record) {
     if (stripos($record['message'], 'Installation process completed') !== false) {
-        exec('rm -rf ' . INSTALLER_DIR);
+        delTree(dirname(__FILE__));
         header('Location: /admin');
     }
     return $record;

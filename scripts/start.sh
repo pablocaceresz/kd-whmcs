@@ -31,7 +31,7 @@ cp /tmp/ioncube/ioncube_loader_lin_$PHPVERSION.so /usr/local/ioncube
 echo zend_extension = /usr/local/ioncube/ioncube_loader_lin_$PHPVERSION.so >>/etc/php.ini
 
 # Install the WHMCS
-if [ ! -e /usr/share/nginx/html/install ]; then
+if [ ! -e /usr/share/nginx/html/install/index.php ]; then
   rm -f /usr/share/nginx/html/*.html
   unzip /whmcs.zip -d /usr/share/nginx/html && mv /usr/share/nginx/html/whmcs/* /usr/share/nginx/html && rmdir /usr/share/nginx/html/whmcs
   touch /usr/share/nginx/html/configuration.php
