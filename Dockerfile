@@ -56,7 +56,7 @@ RUN chmod 755 /start.sh
 ADD src/whmcs_v611_full.zip /whmcs.zip
 
 # fix permissions
-RUN chown -Rf apache:apache /usr/share/nginx/html/
+RUN chown -Rf apache.apache /usr/share/nginx/html/
 
 # Setup Volume
 VOLUME ["/usr/share/nginx/html"]
