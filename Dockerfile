@@ -53,7 +53,7 @@ ADD scripts/loghandler.php /loghandler.php
 RUN chmod 755 /start.sh
 
 # copy in WHMCS archive
-ADD src/whmcs_v611_full.zip /whmcs.zip
+ADD src/whmcs_v631_full.zip /whmcs.zip
 
 # fix permissions
 RUN chown -Rf apache.apache /usr/share/nginx/html/
