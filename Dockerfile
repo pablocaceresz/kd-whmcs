@@ -51,8 +51,7 @@ ADD scripts/start.sh /start.sh
 RUN chmod 755 /start.sh
 
 # copy in WHMCS archive
-ADD src/whmcs.zip /whmcs.zip
-ADD src/dump.sql /dump.sql
+ADD src/whmcs_v611_full.zip /whmcs.zip
 
 # fix permissions
 RUN chown -Rf nginx.nginx /usr/share/nginx/html/
