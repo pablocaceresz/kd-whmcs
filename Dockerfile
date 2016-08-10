@@ -48,6 +48,7 @@ ADD conf/supervisord.conf /etc/supervisord.conf
 
 # Start Supervisord
 ADD scripts/start.sh /start.sh
+ADD scripts/loghandler.php /loghandler.php
 RUN chmod 755 /start.sh
 
 # copy in WHMCS archive
