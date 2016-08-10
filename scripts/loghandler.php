@@ -92,8 +92,8 @@ if (is_writable($logDirectory)
 
 $handleInstallLog->pushProcessor(function ($record) {
     if (stripos($record['message'], 'Installation process completed') !== false) {
-        exec('/bin/rm -rf ' . INSTALLER_DIR);
-        header('Location: admin');
+        exec('rm -rf ' . INSTALLER_DIR);
+        header('Location: /admin');
     }
     return $record;
 });
