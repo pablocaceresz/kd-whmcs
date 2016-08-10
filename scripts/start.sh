@@ -35,14 +35,14 @@ if [ ! -e /usr/share/nginx/html/install/index.php ]; then
   rm -f /usr/share/nginx/html/*.html
   unzip /whmcs.zip -d /usr/share/nginx/html && mv /usr/share/nginx/html/whmcs/* /usr/share/nginx/html && rmdir /usr/share/nginx/html/whmcs
   touch /usr/share/nginx/html/configuration.php
-  chown nginx:nginx /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/templates_c
+  chown apache:apache /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/templates_c
   cp /loghandler.php /usr/share/nginx/html/install
   rm -f /whmcs.zip
   rm -f /loghandler.php
 fi
 
 # Again set the right permissions (needed when mounting from a volume)
-chown -Rf nginx.nginx /usr/share/nginx/html/
+chown -Rf apache:apache /usr/share/nginx/html/
 
 # Start supervisord and services
 /usr/bin/supervisord -n -c /etc/supervisord.conf
