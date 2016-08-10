@@ -35,11 +35,12 @@ if [ ! -e /usr/share/nginx/html/install/index.php ]; then
   rm -f /usr/share/nginx/html/*.html
   unzip /whmcs.zip -d /usr/share/nginx/html && mv /usr/share/nginx/html/whmcs/* /usr/share/nginx/html && rmdir /usr/share/nginx/html/whmcs
   touch /usr/share/nginx/html/configuration.php
-  chown apache:apache /usr/share/nginx/html/configuration.php && chmod 0666 /usr/share/nginx/html/configuration.php && chmod 0666 /usr/share/nginx/html/templates_c
+  chown apache:apache /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/templates_c
   cp /loghandler.php /usr/share/nginx/html/install
-  chmod -R 0666 /usr/share/nginx/html/install
+  chmod -R 0777 /usr/share/nginx/html/install
   rm -f /whmcs.zip
   rm -f /loghandler.php
+  grep 'php -q /usr/share/nginx/html/crons/cron.php' crontab -l || echo '0 0  *  *  * php -q /usr/share/nginx/html/crons/cron.php' | crontab -
 fi
 
 # Again set the right permissions (needed when mounting from a volume)

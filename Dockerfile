@@ -16,7 +16,7 @@ RUN rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos
 yum -y install nginx
 
 # Install php-fpm etc as well as wget/unzip
-RUN yum -y install php-fpm php-mysql php-ldap php-cli php-mbstring php-pdo php-pear php-xml php-soap php-gd wget unzip mysql
+RUN yum -y install php-fpm php-mysql php-ldap php-cli php-mbstring php-pdo php-pear php-xml php-soap php-gd wget unzip mysql cronie
 
 # Get & extract ionCube Loader
 RUN wget -O /tmp/ioncube.tgz http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64_5.1.2.tar.gz && tar -zxf /tmp/ioncube.tgz -C /tmp
