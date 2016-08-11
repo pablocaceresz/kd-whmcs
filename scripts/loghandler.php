@@ -99,7 +99,7 @@ function delTree($dir) {
 }
 
 $handleInstallLog->pushProcessor(function ($record) {
-    if (stripos($record['message'], 'Installation process completed') !== false) {
+    if (stripos($record['message'], 'process completed') !== false) {
         delTree(dirname(__FILE__));
         header('Location: /admin');
     }
