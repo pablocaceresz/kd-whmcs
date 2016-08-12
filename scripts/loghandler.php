@@ -100,6 +100,14 @@ function delTree($dir) {
 
 $handleInstallLog->pushProcessor(function ($record) {
     if (stripos($record['message'], 'process completed') !== false) {
+        $readmePath = ROOTDIR . '/README.txt';
+        if (file_exists($readmePath)) {
+            $data = file_get_contents($readmePath);
+            if (preg_match('/Release Version:\s+?([\d\.]+)\s+?\((.*)\)/', $data, $match)) {
+                $release = trim($match[2]);
+                file_put_contents(ROOTDIR . '/.release', $release);
+            }
+        }
         delTree(dirname(__FILE__));
         header('Location: /admin');
     }

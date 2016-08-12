@@ -30,24 +30,22 @@ mkdir /usr/local/ioncube
 cp /tmp/ioncube/ioncube_loader_lin_$PHPVERSION.so /usr/local/ioncube
 echo zend_extension = /usr/local/ioncube/ioncube_loader_lin_$PHPVERSION.so >>/etc/php.ini
 
+WHMCS_ARCHIVE=$(ls /whmcs_*.zip)
+WHMCS_ARCHIVE_RELEASE=$(ls /whmcs_*.zip | sed 's/whmcs_\(.*\)\.zip/\1/')
+
 rm -f /usr/share/nginx/html/*.html
-unzip -o /whmcs.zip -d /usr/share/nginx/html && cp -rf /usr/share/nginx/html/whmcs/* /usr/share/nginx/html && rm -rf /usr/share/nginx/html/whmcs
-touch /usr/share/nginx/html/configuration.php
-chown apache:apache /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/templates_c
-cp /checkUpdate.php /usr/share/nginx/html/
 
 # Check if update needed
-INSTALL=$(php /usr/share/nginx/html/checkUpdate.php)
-cp /loghandler.php /usr/share/nginx/html/install
-chmod -R 0777 /usr/share/nginx/html/install
-
-if [[ "$INSTALL" == 0 ]]; then
-    rm -rf /usr/share/nginx/html/install
+if [[ ! -e "/usr/share/nginx/html/.release" || $(cat /usr/share/nginx/html/.release) != $WHMCS_ARCHIVE_RELEASE ]]; then
+    unzip -o /$WHMCS_ARCHIVE -d /usr/share/nginx/html && cp -rf /usr/share/nginx/html/whmcs/* /usr/share/nginx/html && rm -rf /usr/share/nginx/html/whmcs
+    touch /usr/share/nginx/html/configuration.php
+    chown apache:apache /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/templates_c
+    cp /loghandler.php /usr/share/nginx/html/install
+    chmod -R 0777 /usr/share/nginx/html/install
 fi
 
-rm -f /whmcs.zip
+rm -f /whmcs_*.zip
 rm -f /loghandler.php
-rm -f /checkUpdate.php
 
 # Again set the right permissions (needed when mounting from a volume)
 chown -Rf apache.apache /usr/share/nginx/html/

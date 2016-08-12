@@ -50,11 +50,10 @@ ADD conf/supervisord.conf /etc/supervisord.conf
 # Start Supervisord
 ADD scripts/start.sh /start.sh
 ADD scripts/loghandler.php /loghandler.php
-ADD scripts/checkUpdate.php /checkUpdate.php
 RUN chmod 755 /start.sh
 
 # copy in WHMCS archive
-ADD src/whmcs_v631_full_with_KD.zip /whmcs.zip
+ADD src/whmcs_*.zip /
 
 # fix permissions
 RUN chown -Rf apache.apache /usr/share/nginx/html/
