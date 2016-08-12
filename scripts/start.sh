@@ -31,13 +31,13 @@ cp /tmp/ioncube/ioncube_loader_lin_$PHPVERSION.so /usr/local/ioncube
 echo zend_extension = /usr/local/ioncube/ioncube_loader_lin_$PHPVERSION.so >>/etc/php.ini
 
 WHMCS_ARCHIVE=$(ls /whmcs_*.zip)
-WHMCS_ARCHIVE_RELEASE=$(ls /whmcs_*.zip | sed 's/whmcs_\(.*\)\.zip/\1/')
+WHMCS_ARCHIVE_RELEASE=$(ls /whmcs_*.zip | sed 's/\/whmcs_\(.*\)\.zip/\1/')
 
 rm -f /usr/share/nginx/html/*.html
 
 # Check if update needed
 if [[ ! -e "/usr/share/nginx/html/.release" || $(cat /usr/share/nginx/html/.release) != $WHMCS_ARCHIVE_RELEASE ]]; then
-    unzip -o /$WHMCS_ARCHIVE -d /usr/share/nginx/html && cp -rf /usr/share/nginx/html/whmcs/* /usr/share/nginx/html && rm -rf /usr/share/nginx/html/whmcs
+    unzip -o $WHMCS_ARCHIVE -d /usr/share/nginx/html && cp -rf /usr/share/nginx/html/whmcs/* /usr/share/nginx/html && rm -rf /usr/share/nginx/html/whmcs
     touch /usr/share/nginx/html/configuration.php
     chown apache:apache /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/configuration.php && chmod 0777 /usr/share/nginx/html/templates_c
     cp /loghandler.php /usr/share/nginx/html/install
